@@ -29,6 +29,7 @@ class CreateTablesMigration extends Migration
                 "`creation_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,",
                 "`last_update_time` TIMESTAMP NULL,",
                 "`disable` INT(1) NOT NULL DEFAULT 0,",
+                "`shares` INT(10) NOT NULL DEFAULT 0",
                 "FOREIGN KEY fk_users_id_notes_owner_id(owner_id) REFERENCES bn_users(id) ON UPDATE CASCADE ON DELETE RESTRICT",
             ")",
             "ENGINE = INNODB, AUTO_INCREMENT = 10000;"

@@ -16,7 +16,7 @@ class IndexController extends Controller
         else {
             $this->assign('title', 'this is index page');
             $this->assign('content', 'boosted by myMvc');
-            $this->render(null);
+            $this->render();
         }
     }
 }

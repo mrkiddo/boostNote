@@ -1,13 +1,15 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: mrkiddo
- * Date: 2017/4/22
- * Time: 16:10
+ * NoteService Class
  */
 class NoteService
 {
+    /**
+     * validate data to be processed
+     * @param array $data
+     * @return bool
+     */
     public function validateData($data) {
         foreach($data as $key => $value) {
             if($key === 'user_id' || $key == 'title') {
@@ -19,6 +21,11 @@ class NoteService
         return true;
     }
 
+    /**
+     * create a new note
+     * @param array $data
+     * @return array
+     */
     public function createNote($data) {
         $valid = $this->validateData($data);
         if(!$valid) {
@@ -60,6 +67,12 @@ class NoteService
         );
     }
 
+    /**
+     * update a note
+     * @param number $noteId
+     * @param array $data
+     * @return array
+     */
     public function updateNote($noteId, $data)
     {
         $valid = $this->validateData($data);
@@ -92,6 +105,11 @@ class NoteService
         }
     }
 
+    /**
+     * disable a note
+     * @param number $noteId
+     * @return array
+     */
     public function disableNote($noteId)
     {
         if(!isset($noteId)) {

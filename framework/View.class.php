@@ -20,13 +20,13 @@ class View
         $this->variables[$name] = $value;
     }
 
-    public function render($template) {
+    public function render($template = '') {
         extract($this->variables);
         $defaultHeader = APP_PATH.'application/views/header.php';
         $defaultFooter = APP_PATH.'application/views/footer.php';
         $defaultLayout = APP_PATH.'application/views/layout.php';
 
-        if(!isset($template)) {
+        if(empty($template)) {
             $controllerHeader = APP_PATH.'application/views/'.$this->_controller.'/header.php';
             $controllerFooter = APP_PATH.'application/views/'.$this->_controller.'/footer.php';
             $controllerLayout = APP_PATH.'application/views/'.$this->_controller.'/layout.php';

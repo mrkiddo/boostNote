@@ -1,23 +1,16 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: mrkiddo
- * Date: 2017/4/22
- * Time: 14:29
+ * Note Controller Class
  */
 class NoteController extends Controller
 {
-    protected function checkUserAuth()
-    {
-        $sessionService = new SessionService();
-        $userId = $sessionService->get('user_id');
-        if(!$userId) {
-            // auth fail, send 403
-        }
-        return $userId;
-    }
-
+    /**
+     * handle note getting requests
+     * @param string $paramName
+     * @param string $value
+     * @return void
+     */
     public function index($paramName = '', $value = '')
     {
         // check session
@@ -33,23 +26,36 @@ class NoteController extends Controller
         else {
             $data = $noteModel->findAll($userId);
         }
+        $this->setHeaderFormat('json');
         echo json_encode($data);
     }
 
+    /**
+     * handle note creating requests
+     * @return void
+     */
     public function create()
     {
         // check session
         //$userId = $this->checkUserAuth();
         $userId = 1000;
         $data = array(
+            'user_id' => $userId,
             'title' => $_POST['title'],
             'content' => $_POST['content']
         );
         $noteService = new NoteService();
         $result = $noteService->createNote($data);
+        $this->setHeaderFormat('json');
         echo json_encode($result);
     }
 
+    /**
+     * handle note updating requests
+     * @param string $paramName
+     * @param string $value
+     * @return void
+     */
     public function update($paramName = '', $value = '') {
         // check session
         //$userId = $this->checkUserAuth();
@@ -64,9 +70,16 @@ class NoteController extends Controller
         );
         $noteService = new NoteService();
         $result = $noteService->updateNote($noteId, $data);
+        $this->setHeaderFormat('json');
         echo json_encode($result);
     }
 
+    /**
+     * handle note disable requests
+     * @param string $paramName
+     * @param string $value
+     * @return void
+     */
     public function disable($paramName = '', $value = '')
     {
         // check session
@@ -78,6 +91,7 @@ class NoteController extends Controller
         }
         $noteService = new NoteService();
         $result = $noteService->disableNote($noteId);
+        $this->setHeaderFormat('json');
         echo json_encode($result);
     }
 }
