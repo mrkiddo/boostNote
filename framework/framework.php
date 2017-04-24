@@ -1,6 +1,7 @@
 <?php
 
-session_set_cookie_params(null, "/", "", false, true);
+ini_set('session.use_cookies', 1);
+ini_set('session.cookie_httponly', 1);
 session_start();
 
 defined('FRAME_PATH') or define('FRAME_PATH', __DIR__.'/');

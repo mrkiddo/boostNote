@@ -95,7 +95,6 @@ class UserController extends Controller
     public function logout()
     {
         $sessionService = new SessionService();
-        $sessionService->reset();
         $sessionService->destroy();
         $this->assign('title', 'Sign in');
         $this->assign('loginPath', 'user/login');
