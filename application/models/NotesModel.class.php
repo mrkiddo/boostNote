@@ -11,7 +11,7 @@ class NotesModel extends Model
      * @param number|string $noteId
      * @return array
      */
-    public function getNotes($userId, $noteId = '')
+    public function getNotes($userId, $noteId)
     {
         $contentTableName = DB_TABLE_PREFIX.'note_content';
         $tableName = $this->getTableName();
@@ -37,36 +37,6 @@ class NotesModel extends Model
             ->join('inner',$contentTableName, $tableName.".id = ".$contentTableName.".note_id")
             ->where($conditions)
             ->select();
-    }
-
-    /**
-     * retrieve all entries with user_id
-     * @param number|string $userId
-     * @return array
-     */
-    public function findAll($userId)
-    {
-        $records = $this->getNotes($userId);
-        return array(
-            'user_id' => $userId,
-            'count' => count($records),
-            'notes' => $records
-        );
-    }
-
-    /**
-     * retrieve a single note with note_id
-     * @param number|string $userId
-     * @param number|string $noteId
-     * @return array
-     */
-    public function findOne($userId, $noteId)
-    {
-        $records = $this->getNotes($userId, $noteId);
-        return array(
-            'user_id' => $userId,
-            'data' => $records
-        );
     }
 
     /**

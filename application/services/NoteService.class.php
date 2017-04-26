@@ -22,6 +22,60 @@ class NoteService
     }
 
     /**
+     * @param string $content
+     * @return string
+     */
+    public function escapeContent($content)
+    {
+        $content = addslashes($content);
+        $content = htmlspecialchars($content);
+        return $content;
+    }
+
+    /**
+     * @param string $content
+     * @return string
+     */
+    public function unescapeContent($content)
+    {
+        $content = stripcslashes($content);
+        $content = htmlspecialchars_decode($content);
+        return $content;
+    }
+
+    /**
+     * retrieve and process note data
+     * @param string|number $userId
+     * @param string|number $noteId
+     * @return array
+     */
+    public function getNotes($userId, $noteId = '')
+    {
+        $noteModel = new NotesModel();
+        $data = $noteModel->getNotes($userId, $noteId);
+        $results = array();
+        $results['user_id'] = $userId;
+        $results['count'] = count($data);
+        $results['notes'] = array();
+        if(count($data) > 0) {
+            foreach($data as $item) {
+                $results['notes'][] = array(
+                    'note_id' => intval($item['note_id']),
+                    'owner_id' => intval($item['owner_id']),
+                    'creation_time' => $item['creation_time'],
+                    'last_update_time' => $item['last_update_time'],
+                    'shares' => intval($item['shares']),
+                    'disable' => intval($item['disable']),
+                    'content_id' => intval($item['content_id']),
+                    'title' => $this->unescapeContent($item['title']),
+                    'content' => $this->unescapeContent($item['content'])
+                );
+            }
+        }
+        return $results;
+    }
+
+    /**
      * create a new note
      * @param array $data
      * @return array
@@ -42,8 +96,10 @@ class NoteService
         $result = $noteModel->create($data);
         if(!empty($result['id'])) {
             $newNoteId = $result['id'];
+            $title = $this->escapeContent($data['title']);
+            $content = $this->escapeContent($data['content']);
             $finalResult = $noteContentModel
-                            ->create($newNoteId, $data['title'], $data['content']);
+                            ->create($newNoteId, $title, $content);
             if(empty($finalResult['id'])) {
                 return array(
                     'success' => false,
@@ -85,8 +141,13 @@ class NoteService
         }
         $noteModel = new NotesModel();
         $noteContentModel = new Note_ContentModel();
+
+        $title = $this->escapeContent($data['title']);
+        $content = $this->escapeContent($data['content']);
+
         $resultFromNote = $noteModel->updateNote($noteId);
-        $resultFromNoteContent = $noteContentModel->updateContent($noteId, $data['title'], $data['content']);
+        $resultFromNoteContent = $noteContentModel
+                                    ->updateContent($noteId, $title, $content);
         if($resultFromNote && $resultFromNoteContent) {
             return array(
                 'success' => true,

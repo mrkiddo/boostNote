@@ -46,16 +46,16 @@ class Controller
      */
     protected function checkUserAuth()
     {
+        if(APP_DEBUG === true) {
+            $userId = 1000;
+            return $userId;
+        }
         $sessionService = new SessionService();
         $userId = $sessionService->get('user_id');
         if(!$userId) {
             // auth fail, send 403
-            $this->setHttpCode(403);
-        }
-        else {
-            if(APP_DEBUG === true) {
-                $userId = 1000;
-            }
+            $this->setHttpCode(401);
+            exit();
         }
         return $userId;
     }

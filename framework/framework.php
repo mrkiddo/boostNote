@@ -1,5 +1,5 @@
 <?php
-
+// config session settings
 ini_set('session.use_cookies', 1);
 ini_set('session.cookie_httponly', 1);
 session_start();

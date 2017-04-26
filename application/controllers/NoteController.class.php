@@ -14,17 +14,16 @@ class NoteController extends Controller
     public function index($paramName = '', $value = '')
     {
         // check session
-        //$userId = $this->checkUserAuth();
-        $userId = 1000;
-        $noteModel = new NotesModel();
+        $userId = $this->checkUserAuth();
+        $noteService = new NoteService();
         if($paramName === 'id' && $value) {
             $noteId = $value;
         }
         if(isset($noteId)) {
-            $data = $noteModel->findOne($userId, $noteId);
+            $data = $noteService->getNotes($userId, $noteId);
         }
         else {
-            $data = $noteModel->findAll($userId);
+            $data = $noteService->getNotes($userId);
         }
         $this->setHeaderFormat('json');
         echo json_encode($data);
@@ -37,8 +36,7 @@ class NoteController extends Controller
     public function create()
     {
         // check session
-        //$userId = $this->checkUserAuth();
-        $userId = 1000;
+        $userId = $this->checkUserAuth();
         $data = array(
             'user_id' => $userId,
             'title' => $_POST['title'],
@@ -58,8 +56,7 @@ class NoteController extends Controller
      */
     public function update($paramName = '', $value = '') {
         // check session
-        //$userId = $this->checkUserAuth();
-        $userId = 1000;
+        $userId = $this->checkUserAuth();
         $noteId = null;
         if($paramName === 'id' && $value) {
             $noteId = $value;
@@ -83,8 +80,7 @@ class NoteController extends Controller
     public function disable($paramName = '', $value = '')
     {
         // check session
-        //$userId = $this->checkUserAuth();
-        $userId = 1000;
+        $userId = $this->checkUserAuth();
         $noteId = null;
         if($paramName === 'id' && $value) {
             $noteId = $value;

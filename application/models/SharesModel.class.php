@@ -54,4 +54,12 @@ class SharesModel extends Model
             'shares' => $record
         );
     }
+
+    public function create($userId, $noteId, $data)
+    {
+
+    }
+
+    public function disable($shareId)
+    {}
 }
