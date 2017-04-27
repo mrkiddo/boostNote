@@ -1,10 +1,15 @@
 <?php
 
 /**
- *
+ * User Model
  */
 class UsersModel extends Model
 {
+    /**
+     * check input data
+     * @param array $data
+     * @return array|bool
+     */
     public function validateData($data)
     {
         if(!isset($data)) {
@@ -38,6 +43,12 @@ class UsersModel extends Model
         return $result;
     }
 
+    /**
+     * check if email is occupied in system
+     * @param string $email
+     * @param bool $checkDisable
+     * @return bool
+     */
     public function checkEmailExists($email, $checkDisable = false)
     {
         $condition = array(
@@ -46,20 +57,20 @@ class UsersModel extends Model
         if($checkDisable) {
             array_push($condition, "disable = 0");
         }
-        return $this->where($condition)->limit(1)->select();
+        $result = $this->where($condition)->limit(1)->select();
+        return count($result) > 0 ? true : false;
     }
 
     public function createUser($email, $pwd, $info = array())
     {
-        $record = $this->checkEmailExists($email, false);
-        if(count($record) > 0) {
-            $result = array(
+        if($this->checkEmailExists($email, false)) {
+            return array(
                 'success' => false,
                 'msg' => 'email already be used',
                 'code' => 1
             );
-            return $result;
         }
+
         $data = array(
             'email' => $email,
             'password' => md5($pwd),

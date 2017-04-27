@@ -40,7 +40,7 @@ class Note_ContentModel extends Model
      * @param string|number $noteId
      * @return array
      */
-    public function disableContent($noteId)
+    public function disable($noteId)
     {
         return $this->updateByCol('note_id', $noteId, array(
             'disable' => 1

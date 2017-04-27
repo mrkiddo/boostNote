@@ -11,7 +11,7 @@ class NotesModel extends Model
      * @param number|string $noteId
      * @return array
      */
-    public function getNotes($userId, $noteId)
+    public function get($userId, $noteId)
     {
         $contentTableName = DB_TABLE_PREFIX.'note_content';
         $tableName = $this->getTableName();
@@ -72,7 +72,7 @@ class NotesModel extends Model
      * @param number|string $noteId
      * @return array
      */
-    public function disableNote($noteId)
+    public function disable($noteId)
     {
         return $this->update($noteId, array(
             'disable'=> 1

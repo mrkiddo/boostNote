@@ -1,18 +1,25 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: mrkiddo
- * Date: 2017/4/22
- * Time: 12:49
+ * Session Service
  */
 class SessionService
 {
+    /**
+     * check if session is started
+     * @return bool
+     */
     public function isStart()
     {
         return isset($_SESSION) ? true : false;
     }
 
+    /**
+     * set session variables
+     * @param string $key
+     * @param mixed $value
+     * @return mixed
+     */
     public function set($key, $value)
     {
         if(!$this->isStart()) {
@@ -22,6 +29,11 @@ class SessionService
         return $value;
     }
 
+    /**
+     * get a session variable
+     * @param string $key
+     * @return mixed
+     */
     public function get($key)
     {
         if(isset($_SESSION[$key])) {
@@ -32,11 +44,17 @@ class SessionService
         }
     }
 
+    /**
+     * reset session
+     */
     public function reset()
     {
         $_SESSION = array();
     }
 
+    /**
+     * end and destroy session
+     */
     public function destroy()
     {
         $this->reset();

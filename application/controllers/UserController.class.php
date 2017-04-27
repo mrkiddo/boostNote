@@ -29,11 +29,11 @@ class UserController extends Controller
     public function create()
     {
         // from post data
-        $email = 'aa@test.com';
-        $pwd = '111111';
+        $email = $_POST['email'];
+        $pwd = $_POST['pwd'];
         $info = array(
-            'last_name' => 'fdf',
-            'first_name' => 'pp'
+            'last_name' => $_POST['last_name'],
+            'first_name' => $_POST['first_name']
         );
 
         $usersModel = new UsersModel();

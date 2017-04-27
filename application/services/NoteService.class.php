@@ -6,17 +6,16 @@
 class NoteService
 {
     /**
-     * validate data to be processed
+     * validate data input
      * @param array $data
      * @return bool
      */
     public function validateData($data) {
-        foreach($data as $key => $value) {
-            if($key === 'user_id' || $key == 'title') {
-                if(empty($value)) {
-                    return false;
-                }
-            }
+        if(!isset($data['user_id']) || empty($data['user_id'])) {
+            return false;
+        }
+        else if(!isset($data['title']) || empty($data['title'])) {
+            return false;
         }
         return true;
     }
@@ -52,7 +51,7 @@ class NoteService
     public function getNotes($userId, $noteId = '')
     {
         $noteModel = new NotesModel();
-        $data = $noteModel->getNotes($userId, $noteId);
+        $data = $noteModel->get($userId, $noteId);
         $results = array();
         $results['user_id'] = $userId;
         $results['count'] = count($data);
@@ -182,8 +181,8 @@ class NoteService
         }
         $noteModel = new NotesModel();
         $noteContentModel = new Note_ContentModel();
-        $resultFromNote = $noteModel->disableNote($noteId);
-        $resultFromNoteContent = $noteContentModel->disableContent($noteId);
+        $resultFromNote = $noteModel->disable($noteId);
+        $resultFromNoteContent = $noteContentModel->disable($noteId);
         if($resultFromNote && $resultFromNoteContent) {
             return array(
                 'success' => true,

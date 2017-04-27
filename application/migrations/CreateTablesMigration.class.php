@@ -17,7 +17,7 @@ class CreateTablesMigration extends Migration
                 "`first_name` VARCHAR(255) NULL,",
                 "`last_name` VARCHAR(255) NULL,",
                 "`disable` INT(1) NOT NULL DEFAULT 0,",
-                "UNIQUE INDEX users_email_index (email)",
+                "INDEX users_email_index (email)",
             ")",
             "ENGINE = INNODB, AUTO_INCREMENT = 1000;"
         );
@@ -39,7 +39,7 @@ class CreateTablesMigration extends Migration
             "(",
                 "`id` BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,",
                 "`note_id` BIGINT UNSIGNED NOT NULL,",
-                "`title` VARCHAR(255) NOT NULL,",
+                "`title` VARCHAR(255),",
                 "`content` TEXT,",
                 "`disable` INT(1) DEFAULT 0",
                 "FOREIGN KEY fk_notes_id_note_content_note_id(note_id) REFERENCES bn_notes(id)",

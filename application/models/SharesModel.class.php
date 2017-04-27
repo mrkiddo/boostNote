@@ -6,9 +6,28 @@
 class SharesModel extends Model
 {
     public function validateData($data)
-    {}
+    {
+        if(!isset($data['type']) || empty($data['type'])) {
+            return false;
+        }
+        else if(!isset($data['target_id']) || empty($data['target_id'])) {
+            if(intval($data['type']) === SHARE_LEVEL_USER) {
+                return false;
+            }
+        }
+        else if(!isset($data['type']) || empty($data['type'])) {
+            if(intval($data['type']) === SHARE_LEVEL_EMAIL ||
+                intval($data['type']) === SHARE_LEVEL_USER) {
+                return false;
+            }
+        }
+        else if(!isset($data['expiry_date']) || empty($data['expiry_date'])) {
+            return false;
+        }
+        return true;
+    }
 
-    public function getShares($userId = 0, $noteId = 0, $shareId = 0)
+    public function get($userId = 0, $noteId = 0)
     {
         $tableName = $this->getTableName();
         $conditions = array(
@@ -29,17 +48,30 @@ class SharesModel extends Model
 
     public function findAllByUser($userId)
     {
-        $records = $this->getShares($userId);
+        $records = $this->get($userId);
+        $results = array();
+        foreach($records as $record) {
+            $noteId = $record['note_id'];
+            if(isset($noteId) && !empty($noteId)) {
+                if(isset($results[$noteId])) {
+                    array_push($results[$noteId], $record);
+                }
+                else {
+                    $results[$noteId] = array();
+                    array_push($results[$noteId], $record);
+                }
+            }
+        }
         return array(
             'user_id' => $userId,
             'count' => count($records),
-            'shares' => $records
+            'shares' => $results
         );
     }
 
     public function findAllByNote($noteId)
     {
-        $records = $this->getShares(null, $noteId);
+        $records = $this->get(null, $noteId);
         return array(
             'note_id' => $noteId,
             'count' => count($records),
@@ -57,9 +89,22 @@ class SharesModel extends Model
 
     public function create($userId, $noteId, $data)
     {
-
+        $newData = array(
+            'owner_id' => $userId,
+            'note_id' => $noteId,
+            'type' => $data['type'],
+            'target_id' => isset($data['target_id']) ? $data['target_id'] : '',
+            'target_email' => isset($data['target_email']) ? $data['target_email'] : '',
+            'expiry_date' => $data['expiry_date'],
+            'disable' => 0
+        );
+        return $this->add($newData);
     }
 
     public function disable($shareId)
-    {}
+    {
+        return $this->update($shareId, array(
+            'disable' => 1
+        ));
+    }
 }

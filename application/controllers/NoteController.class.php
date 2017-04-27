@@ -62,6 +62,7 @@ class NoteController extends Controller
             $noteId = $value;
         }
         $data = array(
+            'user_id' => $userId,
             'title' => $_POST['title'],
             'content' => $_POST['content']
         );
