@@ -5,6 +5,9 @@
  */
 class IndexController extends Controller
 {
+    /**
+     * action /index, main page
+     */
     public function index()
     {
         $sessionService = new SessionService();

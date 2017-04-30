@@ -7,7 +7,7 @@ class Note_ContentModel extends Model
 {
     /**
      * create note content record
-     * @param string|number $noteId
+     * @param string|int $noteId
      * @param string $title
      * @param string $content
      * @return array
@@ -22,7 +22,7 @@ class Note_ContentModel extends Model
 
     /**
      * update note content
-     * @param string|number $noteId
+     * @param string|int $noteId
      * @param string $title
      * @param string $content
      * @return array
@@ -37,7 +37,7 @@ class Note_ContentModel extends Model
 
     /**
      * disable content for a disabled note
-     * @param string|number $noteId
+     * @param string|int $noteId
      * @return array
      */
     public function disable($noteId)

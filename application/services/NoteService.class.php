@@ -44,8 +44,8 @@ class NoteService
 
     /**
      * retrieve and process note data
-     * @param string|number $userId
-     * @param string|number $noteId
+     * @param string|int $userId
+     * @param string|int $noteId
      * @return array
      */
     public function getNotes($userId, $noteId = '')
@@ -124,7 +124,7 @@ class NoteService
 
     /**
      * update a note
-     * @param number $noteId
+     * @param int|string $noteId
      * @param array $data
      * @return array
      */
@@ -135,19 +135,17 @@ class NoteService
             return array(
                 'success' => false,
                 'msg' => 'required data is not provided',
-                'code' => 1
+                'code' => 2
             );
         }
-        $noteModel = new NotesModel();
         $noteContentModel = new Note_ContentModel();
 
         $title = $this->escapeContent($data['title']);
         $content = $this->escapeContent($data['content']);
 
-        $resultFromNote = $noteModel->updateNote($noteId);
-        $resultFromNoteContent = $noteContentModel
+        $result = $noteContentModel
                                     ->updateContent($noteId, $title, $content);
-        if($resultFromNote && $resultFromNoteContent) {
+        if($result) {
             return array(
                 'success' => true,
                 'msg' => 'note update successfully',
@@ -155,11 +153,19 @@ class NoteService
                 'note_id' => $noteId
             );
         }
+        else if($result === 0) {
+            return array(
+                'success' => true,
+                'msg' => 'note is not modified',
+                'code' => 1,
+                'note_id' => $noteId
+            );
+        }
         else {
             return array(
                 'success' => false,
-                'msg' => 'note update fails',
-                'code' => 2,
+                'msg'=> 'note update fails',
+                'code' => 3,
                 'note_id' => $noteId
             );
         }
@@ -167,7 +173,7 @@ class NoteService
 
     /**
      * disable a note
-     * @param number $noteId
+     * @param int|string $noteId
      * @return array
      */
     public function disableNote($noteId)
@@ -180,10 +186,8 @@ class NoteService
             );
         }
         $noteModel = new NotesModel();
-        $noteContentModel = new Note_ContentModel();
-        $resultFromNote = $noteModel->disable($noteId);
-        $resultFromNoteContent = $noteContentModel->disable($noteId);
-        if($resultFromNote && $resultFromNoteContent) {
+        $result = $noteModel->disable($noteId);
+        if($result) {
             return array(
                 'success' => true,
                 'msg' => 'note disable successfully',
@@ -196,6 +200,7 @@ class NoteService
                 'success' => false,
                 'msg' => 'note disable fails',
                 'code' => 2,
+                'ex' => $result,
                 'note_id' => $noteId
             );
         }

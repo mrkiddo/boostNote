@@ -7,8 +7,8 @@ class NotesModel extends Model
 {
     /**
      * retrieve entries from db
-     * @param number|string $userId
-     * @param number|string $noteId
+     * @param int|string $userId
+     * @param int|string $noteId
      * @return array
      */
     public function get($userId, $noteId)
@@ -55,8 +55,8 @@ class NotesModel extends Model
 
     /**
      * update a record
-     * @param number|string $noteId
-     * @param number|string $sharesNum
+     * @param int|string $noteId
+     * @param int|string $sharesNum
      * @return array
      */
     public function updateNote($noteId, $sharesNum = 0)
@@ -69,7 +69,7 @@ class NotesModel extends Model
 
     /**
      * disable a record
-     * @param number|string $noteId
+     * @param int|string $noteId
      * @return array
      */
     public function disable($noteId)

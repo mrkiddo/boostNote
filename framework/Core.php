@@ -5,6 +5,9 @@
  */
 class Core
 {
+    /**
+     * assign file auto load function
+     */
     public function run ()
     {
         spl_autoload_register(array($this, 'loadClass'));
@@ -14,6 +17,9 @@ class Core
         $this->route();
     }
 
+    /**
+     * @param string $class
+     */
     public static function loadClass ($class)
     {
         $frameworks = FRAME_PATH.$class.'.class.php';
@@ -39,12 +45,16 @@ class Core
         else {
             if(APP_DEBUG === true) {
                 //exit('specific file not exist');
+                // if file not found, redirect to exception handler page
                 $exceptionController = new ExceptionController('Exception', 'index');
                 call_user_func(array($exceptionController, 'index'), array());
             }
         }
     }
 
+    /**
+     * apply router function
+     */
     private function route()
     {
         $controllerName = DEFAULT_CONTROLLER;
@@ -78,6 +88,9 @@ class Core
         }
     }
 
+    /**
+     * set reporting
+     */
     private function setReporting ()
     {
         if(APP_DEBUG === true) {

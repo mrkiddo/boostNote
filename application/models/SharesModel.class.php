@@ -5,6 +5,11 @@
  */
 class SharesModel extends Model
 {
+    /**
+     * validate data input
+     * @param array $data
+     * @return bool
+     */
     public function validateData($data)
     {
         if(!isset($data['type']) || empty($data['type'])) {
@@ -27,6 +32,12 @@ class SharesModel extends Model
         return true;
     }
 
+    /**
+     * get shares by user_id or by note_id
+     * @param int|string $userId
+     * @param int|string $noteId
+     * @return array
+     */
     public function get($userId = 0, $noteId = 0)
     {
         $tableName = $this->getTableName();
@@ -46,6 +57,11 @@ class SharesModel extends Model
         }
     }
 
+    /**
+     * get user's all shares
+     * @param int|string $userId
+     * @return array
+     */
     public function findAllByUser($userId)
     {
         $records = $this->get($userId);
@@ -69,6 +85,11 @@ class SharesModel extends Model
         );
     }
 
+    /**
+     * get note's all shares
+     * @param int|string $noteId
+     * @return array
+     */
     public function findAllByNote($noteId)
     {
         $records = $this->get(null, $noteId);
@@ -79,6 +100,10 @@ class SharesModel extends Model
         );
     }
 
+    /**
+     * @param int|string $shareId
+     * @return array
+     */
     public function findById($shareId)
     {
         $record = $this->selectById($shareId);
@@ -87,6 +112,12 @@ class SharesModel extends Model
         );
     }
 
+    /**
+     * @param int|string $userId
+     * @param int|string $noteId
+     * @param array $data
+     * @return array
+     */
     public function create($userId, $noteId, $data)
     {
         $newData = array(
@@ -101,6 +132,10 @@ class SharesModel extends Model
         return $this->add($newData);
     }
 
+    /**
+     * @param int|string $shareId
+     * @return bool
+     */
     public function disable($shareId)
     {
         return $this->update($shareId, array(

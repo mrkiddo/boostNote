@@ -13,6 +13,13 @@ class Sql
     private $joins = '';
     private $limits = '';
 
+    /**
+     * connect to db
+     * @param string $host
+     * @param string $user
+     * @param string $pwd
+     * @param string $dbname
+     */
     public function connect($host, $user, $pwd, $dbname)
     {
         try {
@@ -57,6 +64,13 @@ class Sql
         return $this;
     }
 
+    /**
+     * join current table with other tables
+     * @param string $type
+     * @param string $table
+     * @param string $reference
+     * @return object $this
+     */
     public function join($type = 'inner', $table, $reference)
     {
         $type = strtoupper($type);
@@ -76,6 +90,10 @@ class Sql
         return $this;
     }
 
+    /**
+     * retrieve entries from dd
+     * @return array
+     */
     public function select()
     {
         $sql = sprintf("SELECT %s FROM `%s` %s %s %s %s",
@@ -101,16 +119,19 @@ class Sql
     public function delete($id)
     {
         $sql = sprintf("DELETE FROM `%s` WHERE `id` = '%s'", $this->_table, $id);
-        $sth = $this->_dbHandle->prepare($sql);
-        $sth->execute();
-        return $sth->rowCount();
+        return $this->query($sql);
     }
 
+    /**
+     * perform query for db and return query results
+     * @param string $sql
+     * @return array|boolean
+     */
     public function query($sql)
     {
         $sth = $this->_dbHandle->prepare($sql);
-        $sth->execute();
-        return $sth->rowCount();
+        $result = $sth->execute();
+        return $result ? $sth->rowCount() : false;
     }
 
     public function add($data)

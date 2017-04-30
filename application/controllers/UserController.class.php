@@ -5,6 +5,9 @@
  */
 class UserController extends Controller
 {
+    /**
+     * action /index
+     */
     public function index()
     {
         $sessionService = new SessionService();
@@ -20,12 +23,18 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * action /register
+     */
     public function register()
     {
         $this->assign('title', 'Sign Up');
         $this->render('register');
     }
 
+    /**
+     * action /create
+     */
     public function create()
     {
         // from post data
@@ -51,11 +60,17 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * action /update
+     */
     public function update()
     {
         // from post data
     }
 
+    /**
+     * action /login
+     */
     public function login()
     {
         // from post data
@@ -92,6 +107,9 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * action /logout
+     */
     public function logout()
     {
         $sessionService = new SessionService();
