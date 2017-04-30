@@ -46,7 +46,7 @@ class Controller
      */
     protected function checkUserAuth()
     {
-        if(APP_DEBUG === true) {
+        if(APP_DEBUG === true && MOCK_USER_ID === true) {
             $userId = 1000;
             return $userId;
         }
@@ -54,7 +54,7 @@ class Controller
         $userId = $sessionService->get('user_id');
         if(!$userId) {
             // auth fail, send 403
-            $this->setHttpCode(401);
+            $this->setHttpCode(403);
             exit();
         }
         return $userId;
