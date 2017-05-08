@@ -16,6 +16,10 @@ lib/
 .idea/
 .vscode/
 
+# Compiled files #
+######################
+build/
+
 # Runtime files #
 ######################
-/runtime
+runtime/
