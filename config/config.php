@@ -14,3 +14,5 @@ define('MOCK_USER_ID', true);
 define('SHARE_LEVEL_EVERYONE', 0);
 define('SHARE_LEVEL_EMAIL', 1);
 define('SHARE_LEVEL_USER', 2);
+
+define('SITE_URL', 'http://localhost/boostNote');

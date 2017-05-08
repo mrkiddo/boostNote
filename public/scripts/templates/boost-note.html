@@ -1,0 +1,12 @@
+<nav-bar is-sync="$ctrl.isSync"
+         is-add="$ctrl.isAdd"
+         on-search-change="$ctrl.searchTextChange(text)"
+         user-info="$ctrl.userInfo"
+         on-sign-out="$ctrl.signOut()"
+         on-reload-notes="$ctrl.reloadNotes()"
+         on-toggle-add="$ctrl.toggleAdd()">
+</nav-bar>
+
+<note-add ng-show="$ctrl.isAdd"></note-add>
+
+<note-list search-text="$ctrl.searchText"></note-list>

@@ -1,0 +1,20 @@
+{
+  "name": "boost-note",
+  "version": "0.0.1",
+  "description": "easy notes creation and management application",
+  "scripts": {
+    "js": "browserify scripts/app.js --debug | exorcist build/scripts/bundle.js.map > build/scripts/bundle.js",
+    "scss": "node-sass styles/main.scss > build/styles/main.css"
+  },
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-animate": "^1.6.4",
+    "angular-aria": "^1.6.4",
+    "angular-material": "^1.1.4"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "^14.3.0",
+    "exorcist": "^0.4.0"
+  }
+}

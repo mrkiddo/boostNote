@@ -65,4 +65,28 @@ class SessionService
             $params["secure"], $params["httponly"]
         );
     }
+
+    /**
+     * @param array $data
+     */
+    public function setUserInfo($data)
+    {
+        $this->set('user_id', $data['id']);
+        $this->set('user_email', $data['email']);
+        $this->set('last_name', $data['last_name']);
+        $this->set('first_name', $data['first_name']);
+    }
+
+    /**
+     * @return array
+     */
+    public function getUserInfo()
+    {
+        return array(
+            'user_id' =>$this->get('user_id'),
+            'user_email' => $this->get('user_email'),
+            'last_name' => $this->get('last_name'),
+            'first_name' => $this->get('first_name')
+        );
+    }
 }

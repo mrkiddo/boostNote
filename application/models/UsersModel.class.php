@@ -44,12 +44,12 @@ class UsersModel extends Model
     }
 
     /**
-     * check if email is occupied in system
+     * retrieve user record by email
      * @param string $email
      * @param bool $checkDisable
-     * @return bool
+     * @return array
      */
-    public function checkEmailExists($email, $checkDisable = false)
+    public function getUserByEmail($email, $checkDisable = false)
     {
         $condition = array(
             "email = '".$email."'",
@@ -57,13 +57,13 @@ class UsersModel extends Model
         if($checkDisable) {
             array_push($condition, "disable = 0");
         }
-        $result = $this->where($condition)->limit(1)->select();
-        return count($result) > 0 ? true : false;
+        return $this->where($condition)->limit(1)->select();
     }
 
     public function createUser($email, $pwd, $info = array())
     {
-        if($this->checkEmailExists($email, false)) {
+        $record = $this->getUserByEmail($email, false);
+        if(count($record) > 0) {
             return array(
                 'success' => false,
                 'msg' => 'email already be used',
@@ -100,7 +100,7 @@ class UsersModel extends Model
 
     public function validateUser($email, $pwd)
     {
-        $record = $this->checkEmailExists($email, true);
+        $record = $this->getUserByEmail($email, true);
         if(count($record) === 0) {
             $result = array(
                 'valid' => false,

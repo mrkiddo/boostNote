@@ -1,5 +1,6 @@
 <div class="wrapper">
-    <form action="<?php echo $loginPath; ?>" method="POST">
+    <span><?php if(isset($error)): echo $error; endif; ?></span>
+    <form action="<?php echo SITE_URL.'/user/login' ?>" method="POST">
         <div class="input-item">
             <label for="login-email">Email</label>
             <input type="email" name="email" id="login-email">

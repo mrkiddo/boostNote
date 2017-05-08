@@ -1,0 +1,31 @@
+nav-bar {
+  .search-wrapper {
+    margin-left: 20px;
+    margin-top: 4px;
+
+    .btn-reset {
+      margin-left: -5px;
+    }
+
+    .search-input {
+      border: 0;
+      margin-left: 3px;
+      padding: 2px 3px;
+      border-radius: 3px;
+      font-size: 1.125rem;
+      background-color: #5F6AAD;
+      color: #ffffff;
+    }
+  }
+}
+
+md-menu-content {
+
+  .btn-account {
+    font-size: 1.125rem;
+  }
+
+  .user-name, .user-email {
+    padding: 0 8px;
+  }
+}

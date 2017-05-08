@@ -1,0 +1,52 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <md-truncate>Boost Note</md-truncate>
+
+        <md-truncate class="search-wrapper">
+            <md-icon md-font-icon="search" alt="Search">search</md-icon>
+            <input type="text" class="search-input"
+                   ng-model="navCtrl.searchText"
+                   ng-keyup="navCtrl.searchUpdate()">
+            <md-button class="md-icon-button md-mini btn-reset" aria-label="Reset Search"
+                       ng-click="navCtrl.searchReset()">
+                <md-icon md-font-icon="close" alt="Close">close</md-icon>
+            </md-button>
+        </md-truncate>
+
+        <span flex></span>
+
+        <md-button class="md-icon-button md-mini" aria-label="Add"
+                   ng-click="navCtrl.toggleAdd($event)"
+                   ng-disabled="navCtrl.isAdd">
+            <md-icon md-font-icon="add" alt="Add">add</md-icon>
+        </md-button>
+
+        <md-button class="md-icon-button md-mini" aria-label="Refresh" ng-click="navCtrl.reloadNotes($event)">
+            <md-icon md-font-icon="sync" alt="Synchronizing" ng-show="navCtrl.isSync">sync</md-icon>
+            <md-icon md-font-icon="refresh" alt="Refresh" ng-hide="navCtrl.isSync">refresh</md-icon>
+        </md-button>
+
+        <md-menu md-position-mode="target-right target" md-offset="0 55">
+            <md-button class="md-fab md-mini btn-account" aria-label="Account" ng-click="navCtrl.openMenu($mdMenu, $event)">
+                {{navCtrl.userInfo.user_abbr}}
+            </md-button>
+            <md-menu-content>
+                <md-truncate class="user-name">
+                    <md-icon md-font-icon="account_circle" alt="User Name">account_circle</md-icon>
+                    <span>{{navCtrl.userInfo.last_name}} {{navCtrl.userInfo.first_name}}</span>
+                </md-truncate>
+                <md-truncate class="user-email">
+                    <md-icon md-font-icon="email" alt="Email">email</md-icon>
+                    <span>{{navCtrl.userInfo.user_email}}</span>
+                </md-truncate>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item>
+                    <md-button class="btn-sign-out" ng-click="navCtrl.signOut()">
+                        <md-icon md-font-icon="exit_to_app" alt="Sign-out">exit_to_app</md-icon>
+                        Sign Out
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </div>
+</md-toolbar>

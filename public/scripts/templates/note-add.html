@@ -1,0 +1,11 @@
+<md-whiteframe class="md-whiteframe-1dp" flex="100" layout="column" layout-align="center center">
+    <md-input-container class="md-icon-float md-block">
+        <md-icon md-font-icon="title" alt="title">title</md-icon>
+        <input type="text" aria-label="new-note-title">
+    </md-input-container>
+    <md-input-container class="md-block">
+        <md-icon md-font-icon="create" alt="content">create</md-icon>
+        <textarea ng-model="noteAddCtrl.noteContent"
+                  md-select-on-focus rows="5" aria-label="new-note-content"></textarea>
+    </md-input-container>
+</md-whiteframe>

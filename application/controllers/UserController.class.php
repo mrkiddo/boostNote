@@ -13,12 +13,12 @@ class UserController extends Controller
         $sessionService = new SessionService();
         $userId = $sessionService->get('user_id');
         if($userId) {
-            $this->assign('redirectUrl', 'http://localhost/boostNote/index');
+            $this->assign('redirectUrl', SITE_URL.'/index');
             $this->render('redirect');
         }
         else {
             $this->assign('title', 'Sign In');
-            $this->assign('loginPath', 'user/login');
+            $this->assign('loginPath', SITE_URL.'/user/login');
             $this->render('login'); // render login page
         }
     }
@@ -55,7 +55,7 @@ class UserController extends Controller
         else {
             // if success, redirect to login
             $this->assign('title', 'Sign In');
-            $this->assign('loginPath', 'user/login');
+            $this->assign('loginPath', SITE_URL.'/user/login');
             $this->render('login'); // render login page
         }
     }
@@ -80,6 +80,11 @@ class UserController extends Controller
             $email = $_POST['email'];
             $pwd = $_POST['pwd'];
         }
+        else {
+            $this->assign('title', 'Sign In');
+            $this->render('login'); // render login page
+            exit();
+        }
         $userModel = new UsersModel();
         $validate = $userModel->validateData(array(
             'email' => $email,
@@ -89,6 +94,7 @@ class UserController extends Controller
             $this->assign('title', 'Sign In');
             $this->assign('error', $validate['msg']);
             $this->render('login');
+            exit();
         }
         $result = $userModel->validateUser($email, $pwd);
         if(!$result['valid']) {
@@ -102,7 +108,7 @@ class UserController extends Controller
             $sessionService->set('user_email', $result['data']['email']);
             $sessionService->set('last_name', $result['data']['last_name']);
             $sessionService->set('first_name', $result['data']['first_name']);
-            $this->assign('redirectUrl', 'http://localhost/boostNote/index');
+            $this->assign('redirectUrl', SITE_URL.'/index');
             $this->render('redirect');
         }
     }
@@ -114,8 +120,25 @@ class UserController extends Controller
     {
         $sessionService = new SessionService();
         $sessionService->destroy();
-        $this->assign('title', 'Sign in');
-        $this->assign('loginPath', 'user/login');
-        $this->render('login');
+        $this->assign('redirectUrl', SITE_URL.'/index');
+        $this->render('redirect');
+    }
+
+    public function auth()
+    {
+        $sessionService = new SessionService();
+        $userId = $sessionService->get('user_id');
+        if(!$userId) {
+            $this->setHeaderFormat('json');
+            $this->setHttpCode(403);
+            echo json_encode(array(
+                'error' => 'user authorization failure'
+            ));
+        }
+        else {
+            $data = $sessionService->getUserInfo();
+            $this->setHeaderFormat('json');
+            echo json_encode($data);
+        }
     }
 }

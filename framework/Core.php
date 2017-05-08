@@ -44,7 +44,8 @@ class Core
         }
         else {
             if(APP_DEBUG === true) {
-                //exit('specific file not exist');
+                var_dump($class);
+                exit('specific file not exist');
                 // if file not found, redirect to exception handler page
                 $exceptionController = new ExceptionController('Exception', 'index');
                 call_user_func(array($exceptionController, 'index'), array());
