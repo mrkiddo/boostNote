@@ -27,7 +27,26 @@ var noteService = function ($q, $http) {
     };
 
     service.addNote = function (data) {
-        noteData.push(data);
+        var newNote = data;
+        return $q(function (resolve, reject) {
+            $http({
+                method: 'POST',
+                url: 'http://localhost/boostNote/note/create',
+                data: newNote
+            }).then(function (response) {
+                var responseData = response.data;
+                if(!responseData.success) {
+                    reject(responseData.msg);
+                }
+                else {
+                    newNote['note_id'] = responseData['note_id'];
+                    noteData.push(newNote);
+                    resolve(newNote);
+                }
+            }, function (err) {
+                reject(err);
+            });
+        });
     };
 
     service.getNoteData = function () {

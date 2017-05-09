@@ -10,7 +10,7 @@
     </md-input-container>
     <md-content>
         <md-button class="md-raised md-warn" ng-click="noteAddCtrl.toggleAdd($event)">Cancel</md-button>
-        <md-button class="md-raised md-primary"
+        <md-button class="md-raised md-primary" ng-click="noteAddCtrl.addNote($event)"
                    ng-disabled="!(noteAddCtrl.note.title && noteAddCtrl.note.content)">Finish</md-button>
     </md-content>
 </md-whiteframe>

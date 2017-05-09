@@ -13,12 +13,18 @@ var noteAdd = {
         vm.note = noteService.getBaseModel();
 
         vm.$onInit = function () {
-            vm.noteContent = '';
-        };
+            vm.toggleAdd = function () {
+                vm.note = noteService.getBaseModel();
+                vm.onToggleAdd();
+            };
 
-        vm.toggleAdd = function () {
-            vm.note = noteService.getBaseModel();
-            vm.onToggleAdd();
+            vm.addNote = function () {
+                noteService.addNote(vm.note).then(function (data) {
+                    vm.toggleAdd();
+                }, function (err) {
+                    // TODO
+                });
+            };
         };
     },
     controllerAs: 'noteAddCtrl'
