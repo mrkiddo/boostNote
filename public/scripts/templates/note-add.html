@@ -1,11 +1,16 @@
 <md-whiteframe class="md-whiteframe-1dp" flex="100" layout="column" layout-align="center center">
     <md-input-container class="md-icon-float md-block">
         <md-icon md-font-icon="title" alt="title">title</md-icon>
-        <input type="text" aria-label="new-note-title">
+        <input type="text" aria-label="new-note-title" ng-model="noteAddCtrl.note.title">
     </md-input-container>
     <md-input-container class="md-block">
         <md-icon md-font-icon="create" alt="content">create</md-icon>
-        <textarea ng-model="noteAddCtrl.noteContent"
+        <textarea ng-model="noteAddCtrl.note.content"
                   md-select-on-focus rows="5" aria-label="new-note-content"></textarea>
     </md-input-container>
+    <md-content>
+        <md-button class="md-raised md-warn" ng-click="noteAddCtrl.toggleAdd($event)">Cancel</md-button>
+        <md-button class="md-raised md-primary"
+                   ng-disabled="!(noteAddCtrl.note.title && noteAddCtrl.note.content)">Finish</md-button>
+    </md-content>
 </md-whiteframe>

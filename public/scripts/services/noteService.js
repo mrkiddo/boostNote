@@ -2,8 +2,17 @@
 
 var noteService = function ($q, $http) {
     var noteData = [];
+    var noteModel = {
+        'note_id': 0,
+        'title': '',
+        'content': ''
+    };
 
     var service = {};
+
+    service.getBaseModel = function () {
+        return angular.extend({}, noteModel);
+    };
 
     service.getNotes = function () {
         return noteData;

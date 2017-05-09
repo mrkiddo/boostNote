@@ -7,6 +7,7 @@
          on-toggle-add="$ctrl.toggleAdd()">
 </nav-bar>
 
-<note-add ng-show="$ctrl.isAdd"></note-add>
+<note-add ng-show="$ctrl.isAdd"
+          on-toggle-add="$ctrl.toggleAdd()"></note-add>
 
 <note-list search-text="$ctrl.searchText"></note-list>
