@@ -12,7 +12,8 @@
                 {{note.content}}
             </md-card-content>
             <md-card-actions>
-                <md-button class="md-icon-button" aria-label="Delete">
+                <md-button class="md-icon-button" aria-label="Delete"
+                           ng-click="noteCtrl.removeNote($event, $index)">
                     <md-icon md-font-icon="delete" alt="delete">delete</md-icon>
                 </md-button>
                 <md-button class="md-icon-button" aria-label="Share">

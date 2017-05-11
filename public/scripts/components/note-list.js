@@ -5,7 +5,7 @@ var noteList = {
     bindings: {
         searchText: '<'
     },
-    controller: function noteListController ($scope, noteService) {
+    controller: function noteListController ($scope, $mdToast, noteService) {
         var vm = this;
 
         vm.$onInit = function () {
@@ -14,6 +14,17 @@ var noteList = {
             }, function (err) {
                 // TODO: error handling
             });
+
+            vm.removeNote = function ($event, $index) {
+                var toast = $mdToast.simple();
+                noteService.deleteNote($index).then(function () {
+                    $mdToast.show(toast.textContent('Delete Successfully'));
+                }, function () {
+                    $mdToast.show(toast.textContent('Oops, delete fails...'));
+                });
+                $event.stopPropagation();
+                $event.preventDefault();
+            }
         };
 
         $scope.$watch(function () {

@@ -5,7 +5,7 @@ var angularMaterial = require('angular-material');
 
 var app = angular.module('note-app', [angularMaterial]);
 
-app.config(function ($httpProvider) {
+app.config(function ($httpProvider, $mdThemingProvider) {
     $httpProvider.defaults.headers.post = {
         'Content-type': 'application/x-www-form-urlencoded'
     };
@@ -19,6 +19,17 @@ app.config(function ($httpProvider) {
         }
         return str.join("&");
     };
+
+    $mdThemingProvider.theme('default')
+        .primaryPalette('green', {
+            'default': '500',
+            'hue-1': '100',
+            'hue-2': '200',
+            'hue-3': '300'
+        })
+        .accentPalette('green', {
+            'default': '200'
+        });
 });
 
 var components = require('./components');

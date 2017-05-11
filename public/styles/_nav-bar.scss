@@ -13,17 +13,19 @@ nav-bar {
       padding: 2px 3px;
       border-radius: 3px;
       font-size: 1.125rem;
-      background-color: #5F6AAD;
+      background-color: rgb(165,214,167);
       color: #ffffff;
     }
+  }
+
+  .btn-account {
+    font-size: 1rem;
+    font-weight: bold;
+    color: rgba(67, 128, 71, 1);
   }
 }
 
 md-menu-content {
-
-  .btn-account {
-    font-size: 1.125rem;
-  }
 
   .user-name, .user-email {
     padding: 0 8px;

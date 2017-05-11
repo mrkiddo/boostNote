@@ -23,7 +23,24 @@ var noteService = function ($q, $http) {
     };
 
     service.deleteNote = function (index) {
+        var note = noteData[index];
         noteData.splice(index, 1);
+        return $q(function (resolve, reject) {
+            $http({
+                method: 'GET',
+                url: 'http://localhost/boostNote/note/disable/id/' + note.note_id
+            }).then(function (response) {
+                var responseData = response.data;
+                if(!responseData.success) {
+                    reject(responseData.msg);
+                }
+                else {
+                    resolve(true);
+                }
+            }, function (err) {
+                reject(err);
+            });
+        });
     };
 
     service.addNote = function (data) {

@@ -200,7 +200,6 @@ class NoteService
                 'success' => false,
                 'msg' => 'note disable fails',
                 'code' => 2,
-                'ex' => $result,
                 'note_id' => $noteId
             );
         }

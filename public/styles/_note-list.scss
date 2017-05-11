@@ -1,5 +1,7 @@
-md-card.note-item {
-  .md-headline, md-card-content {
-    word-wrap: break-word;
+note-list {
+  md-card.note-item {
+    .md-headline, md-card-content {
+      word-wrap: break-word;
+    }
   }
 }

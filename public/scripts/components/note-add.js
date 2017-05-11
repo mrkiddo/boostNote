@@ -7,7 +7,7 @@ var noteAdd = {
     bindings: {
         onToggleAdd: '&'
     },
-    controller: function noteAddController (noteService) {
+    controller: function noteAddController ($mdToast, noteService) {
         var vm = this;
 
         vm.note = noteService.getBaseModel();
@@ -19,10 +19,12 @@ var noteAdd = {
             };
 
             vm.addNote = function () {
+                var toast = $mdToast.simple();
                 noteService.addNote(vm.note).then(function (data) {
                     vm.toggleAdd();
+                    $mdToast.show(toast.textContent('Created Successfully'));
                 }, function (err) {
-                    // TODO
+                    $mdToast.show(toast.textContent('Oops, creation fails...'));
                 });
             };
         };
