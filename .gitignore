@@ -23,3 +23,7 @@ build/
 # Runtime files #
 ######################
 runtime/
+
+# Error Log files #
+######################
+*.log
