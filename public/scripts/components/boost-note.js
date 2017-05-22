@@ -8,6 +8,7 @@ var boostNote = {
         vm.$onInit = function () {
             vm.isSync = false;
             vm.isAdd = false;
+            vm.isEdit = false;
             vm.searchText = '';
             vm.userInfo = undefined;
 
@@ -21,6 +22,15 @@ var boostNote = {
 
             vm.toggleAdd = function () {
                 vm.isAdd = !vm.isAdd;
+            };
+
+            vm.toggleEdit = function () {
+                if(!vm.isEdit && !vm.isAdd) {
+                    vm.isEdit = true;
+                }
+                else {
+                    vm.isEdit = false;
+                }
             };
 
             vm.reloadNotes = function () {

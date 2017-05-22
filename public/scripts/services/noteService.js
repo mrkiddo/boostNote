@@ -7,6 +7,7 @@ var noteService = function ($q, $http) {
         'title': '',
         'content': ''
     };
+    var selectedNote = {};
 
     var service = {};
 
@@ -20,6 +21,20 @@ var noteService = function ($q, $http) {
 
     service.setNotes = function (data) {
         noteData = data;
+    };
+
+    service.selectNote = function (noteId) {
+        selectedNote = {};
+        for(var i = 0; i < noteData.length; i++) {
+            if(noteData[i].note_id === noteId) {
+                selectedNote = noteData[i];
+                return noteData[i];
+            }
+        }
+    };
+
+    service.getSelectNote = function () {
+        return selectedNote;
     };
 
     service.deleteNote = function (index) {
@@ -59,6 +74,26 @@ var noteService = function ($q, $http) {
                     newNote['note_id'] = responseData['note_id'];
                     noteData.push(newNote);
                     resolve(newNote);
+                }
+            }, function (err) {
+                reject(err);
+            });
+        });
+    };
+
+    service.updateNote = function (data) {
+        return $q(function (resolve, reject) {
+            $http({
+                method: 'POST',
+                url: 'http://localhost/boostNote/note/update/id/' + data.note_id,
+                data: data
+            }).then(function (response) {
+                var responseData = response.data;
+                if(!responseData.success) {
+                    reject(responseData.msg);
+                }
+                else {
+                    resolve(true);
                 }
             }, function (err) {
                 reject(err);

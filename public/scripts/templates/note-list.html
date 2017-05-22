@@ -1,24 +1,23 @@
 <md-content layout-xs="column" layout="row" layout-wrap layout-align="center stretch">
-
-        <md-card flex-gt-xs="15" flex-md="30" flex="100"
-                 ng-repeat="note in noteCtrl.notes | filter:noteCtrl.searchText track by note.note_id"
-                 class="note-item">
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-headline">{{note.title}}</span>
-                </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-                {{note.content}}
-            </md-card-content>
-            <md-card-actions>
-                <md-button class="md-icon-button" aria-label="Delete"
-                           ng-click="noteCtrl.removeNote($event, $index)">
-                    <md-icon md-font-icon="delete" alt="delete">delete</md-icon>
-                </md-button>
-                <md-button class="md-icon-button" aria-label="Share">
-                    <md-icon md-font-icon="share" alt="share">share</md-icon>
-                </md-button>
-            </md-card-actions>
-        </md-card>
+    <md-card flex-gt-xs="15" flex-md="30" flex="100"
+             ng-repeat="note in noteCtrl.notes | filter:noteCtrl.searchText track by note.note_id"
+             class="note-item" ng-click="noteCtrl.selectNote($event, note.note_id)">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{note.title}}</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+            {{note.content}}
+        </md-card-content>
+        <md-card-actions>
+            <md-button class="md-icon-button" aria-label="Delete"
+                       ng-click="noteCtrl.removeNote($event, $index)">
+                <md-icon md-font-icon="delete" alt="delete">delete</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="Share">
+                <md-icon md-font-icon="share" alt="share">share</md-icon>
+            </md-button>
+        </md-card-actions>
+    </md-card>
 </md-content>

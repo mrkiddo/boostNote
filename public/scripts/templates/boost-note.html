@@ -10,6 +10,8 @@
 <note-add ng-show="$ctrl.isAdd"
           on-toggle-add="$ctrl.toggleAdd()"></note-add>
 
-<note-list search-text="$ctrl.searchText"></note-list>
+<note-edit ng-show="$ctrl.isEdit"
+           on-toggle-edit="$ctrl.toggleEdit()"></note-edit>
 
-<note-edit></note-edit>
+<note-list search-text="$ctrl.searchText" ng-hide="$ctrl.isEdit || $ctrl.isAdd"
+           on-toggle-edit="$ctrl.toggleEdit()"></note-list>

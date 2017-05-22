@@ -3,7 +3,8 @@
 var noteList = {
     templateUrl: 'http://localhost/boostNote/public/scripts/templates/note-list.html',
     bindings: {
-        searchText: '<'
+        searchText: '<',
+        onToggleEdit: '&'
     },
     controller: function noteListController ($scope, $mdToast, noteService) {
         var vm = this;
@@ -24,7 +25,14 @@ var noteList = {
                 });
                 $event.stopPropagation();
                 $event.preventDefault();
-            }
+            };
+
+            vm.selectNote = function ($event, noteId) {
+                noteService.selectNote(noteId);
+                vm.onToggleEdit();
+                $event.stopPropagation();
+                $event.preventDefault();
+            };
         };
 
         $scope.$watch(function () {

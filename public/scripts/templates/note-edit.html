@@ -1,0 +1,19 @@
+<md-whiteframe class="md-whiteframe-1dp" flex="100" layout="column" layout-align="center center">
+    <md-input-container class="md-icon-float md-block">
+        <md-icon md-font-icon="title" alt="title">title</md-icon>
+        <input type="text" aria-label="eidt-note-title"
+               ng-model="noteEditCtrl.note.title"
+               ng-model-options="{debounce: 250}"
+               ng-change="noteEditCtrl.updateNote()">
+    </md-input-container>
+    <md-input-container>
+        <md-icon md-font-icon="create" alt="content">create</md-icon>
+        <textarea ng-model="noteEditCtrl.note.content"
+                  ng-change="noteEditCtrl.updateNote()"
+                  ng-model-options="{debounce: 250}"
+                  md-select-on-focus row="5" aria-label="edit-note-content"></textarea>
+    </md-input-container>
+    <md-content>
+        <md-button class="md-raised md-primary" ng-click="noteEditCtrl.onSave($event)">Save</md-button>
+    </md-content>
+</md-whiteframe>
