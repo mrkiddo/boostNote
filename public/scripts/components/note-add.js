@@ -1,9 +1,7 @@
 'use strict';
 
-var config = require('../config/config');
-
 var noteAdd = {
-    templateUrl: config.siteUrl + '/public/scripts/templates/note-add.html',
+    templateUrl: 'public/scripts/templates/note-add.html',
     bindings: {
         onToggleAdd: '&'
     },

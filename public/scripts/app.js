@@ -32,5 +32,7 @@ app.config(function ($httpProvider, $mdThemingProvider) {
         });
 });
 
+
+var configs = require('./config');
 var components = require('./components');
 var services = require('./services');
